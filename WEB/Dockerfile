@@ -18,6 +18,10 @@ RUN echo "Flag{Cờ đây chắc thế}" > /tmp/flag.txt
 WORKDIR /var/www/html/
 COPY . .
 
+# Change permissions
+RUN chown -R www-data:www-data /var/www/html/images/
+RUN chmod -R 777 /var/www/html/images/
+
 # Expose port 80 to the outside world
 EXPOSE 80
 
