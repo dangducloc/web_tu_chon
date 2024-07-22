@@ -41,9 +41,9 @@ if (!isset($_POST['name']) && !isset($_POST['passwd']))
 {
     $name = $_POST['name'];
     $pass = $_POST['passwd'];
+    
     include "./func/conect.php";
     $sql = "SELECT * FROM users WHERE name = '$name' AND pass = '$pass'";
-    echo "<center>" . $sql . "</center>";
     $rs = $con->query($sql);
     if ($rs->num_rows >= 1)
     {
@@ -53,9 +53,7 @@ if (!isset($_POST['name']) && !isset($_POST['passwd']))
         while ($row = $rs->fetch_assoc())
         {
             $arr[] = $row;
-        }
-
-        print_r($arr); ?>
+        } ?>
         <script>
             setTimeout(function () {
                 window.location.href = './control.php?file=index.php';
