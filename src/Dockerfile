@@ -1,5 +1,5 @@
 # Use Ubuntu as the base image
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 # Set noninteractive mode and configure time zone
 ENV DEBIAN_FRONTEND=noninteractive
@@ -12,11 +12,12 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Put flag on somewhere
-RUN echo "Flag{Cờ đây chắc thế}" > /tmp/flag.txt
+# RUN echo "Flag{Cờ đây chắc thế}" > /tmp/flag.txt
 
 # Set working directory
 WORKDIR /var/www/html/
-COPY . .
+COPY ./WEB .
+RUN rm -rf index.html
 
 # Change permissions
 RUN chown -R www-data:www-data /var/www/html/images/
