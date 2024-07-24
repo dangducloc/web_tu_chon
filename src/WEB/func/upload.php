@@ -30,10 +30,7 @@ foreach($arr as $ele){
 if ($a == 1) {
     echo "Not Allow Upload Shell";
     $uploadOk = 0;
-}else{
-    echo "hacker said: ".$imageFileType;
 }
-
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
