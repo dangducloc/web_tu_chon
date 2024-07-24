@@ -50,7 +50,7 @@ if (!isset($_POST['name']) && !isset($_POST['passwd'])) {
             $arr[] = $row;
         }
 
-        print_r($arr); ?>
+        // print_r($arr); ?>
         <script>
             setTimeout(function() {
                 window.location.href = './control.php?file=index.php';

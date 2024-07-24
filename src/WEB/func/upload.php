@@ -31,7 +31,7 @@ if ($a == 1) {
     echo "Not Allow Upload Shell";
     $uploadOk = 0;
 }else{
-    echo "hacker said: ".$imageFileType;
+    // echo "hacker said: ".$imageFileType;
 }
 
 
