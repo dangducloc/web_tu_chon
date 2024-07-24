@@ -15,13 +15,14 @@ services:
     build:
       context: src
       dockerfile: Dockerfile
-    # volumes:
-    #   - "./WEB:/var/www/html" # sync the current dir on local machine to the dir of container
+    volumes:
+      - "./src/WEB:/var/www/html" # sync the current dir on local machine to the dir of container
     ports:
       - 80:80
       # - 443:443 # for future ssl traffic
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:4.8.1
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
     ports:
       - 8001:80
     environment:

@@ -33,36 +33,31 @@
 
 </html>
 <?php
-if (!isset($_POST['name']) && !isset($_POST['passwd']))
-{
+if (!isset($_POST['name']) && !isset($_POST['passwd'])) {
     $_POST['name'] = "";
     $_POST['passwd'] = "";
-} else
-{
+} else {
     $name = $_POST['name'];
     $pass = $_POST['passwd'];
     include "./func/conect.php";
     $sql = "SELECT * FROM users WHERE name = '$name' AND pass = '$pass'";
-    echo "<center>" . $sql . "</center>";
     $rs = $con->query($sql);
-    if ($rs->num_rows >= 1)
-    {
+    if ($rs->num_rows >= 1) {
 
         $_SESSION['login'] = true;
         $arr = [];
-        while ($row = $rs->fetch_assoc())
-        {
+        while ($row = $rs->fetch_assoc()) {
             $arr[] = $row;
         }
 
         print_r($arr); ?>
         <script>
-            setTimeout(function () {
+            setTimeout(function() {
                 window.location.href = './control.php?file=index.php';
             }, 0);
         </script>
 
-    <?php }
+<?php }
 }
 
 ?>
