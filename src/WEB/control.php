@@ -1,3 +1,12 @@
 <?php
 $file = $_GET['file'];
-include "$file";
+if(strpos($file, '....//') !== false) {
+    $file = str_replace("....//","",$file);
+}
+if (strpos($file, '../') !== false) {
+    $file = str_replace("../","",$file);
+}
+
+include "/var/www/html/$file";
+
+

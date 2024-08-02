@@ -1,7 +1,6 @@
 <?php
 session_start();
-$flag = false;
-if(!isset($_SESSION['login'])){?>
+if(!isset($_COOKIE['login'])||$_COOKIE['login']!=true){?>
     <script>
         setTimeout(function() {
             window.location.href = './login.php';

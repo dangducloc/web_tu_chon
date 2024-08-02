@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 29, 2024 at 11:05 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Host: db:3306
+-- Generation Time: Aug 02, 2024 at 08:27 AM
+-- Server version: 8.3.0
+-- PHP Version: 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `drinks` (
-  `id` int(11) NOT NULL,
-  `name` varchar(80) NOT NULL,
-  `price` int(2) NOT NULL,
-  `img` varchar(10) NOT NULL
+  `id` int NOT NULL,
+  `name` varchar(80) COLLATE utf8mb4_general_ci NOT NULL,
+  `price` int NOT NULL,
+  `img` varchar(10) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -57,7 +57,7 @@ INSERT INTO `drinks` (`id`, `name`, `price`, `img`) VALUES
 --
 
 CREATE TABLE `flag` (
-  `flag` varchar(80) NOT NULL
+  `flag` varchar(80) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -70,24 +70,46 @@ INSERT INTO `flag` (`flag`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `msg`
+--
+
+CREATE TABLE `msg` (
+  `id` int NOT NULL,
+  `id_user` int NOT NULL,
+  `msg` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `msg`
+--
+
+INSERT INTO `msg` (`id`, `id_user`, `msg`) VALUES
+(1, 1, 'demo'),
+(2, 1, 'demo');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(80) NOT NULL,
-  `pass` varchar(11) NOT NULL
+  `id` int NOT NULL,
+  `name` varchar(80) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(80) COLLATE utf8mb4_general_ci NOT NULL,
+  `pass` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
+  `role` varchar(6) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Member'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `pass`) VALUES
-(1, 'demo', '1234'),
-(2, 'dummy', '2345'),
-(3, 'river_shen', '2345'),
-(4, 'Flag{', 'Flag1}');
+INSERT INTO `users` (`id`, `name`, `email`, `pass`, `role`) VALUES
+(1, 'linh', 'linh@gmail.com', '1234', 'Member'),
+(2, 'dummy', 'dummy@gmail.com', '2345', 'Member'),
+(3, 'river_shen', 'river_shen@gmail.com', '2345', 'Member'),
+(5, 'admin', 'admin@gmail.com', 'admin', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -98,6 +120,13 @@ INSERT INTO `users` (`id`, `name`, `pass`) VALUES
 --
 ALTER TABLE `drinks`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `msg`
+--
+ALTER TABLE `msg`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user` (`id_user`);
 
 --
 -- Indexes for table `users`
@@ -113,13 +142,29 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `drinks`
 --
 ALTER TABLE `drinks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `msg`
+--
+ALTER TABLE `msg`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `msg`
+--
+ALTER TABLE `msg`
+  ADD CONSTRAINT `msg_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

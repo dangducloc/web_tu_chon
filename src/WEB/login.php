@@ -41,26 +41,38 @@ if (!isset($_POST['name']) && !isset($_POST['passwd']))
 {
     $name = $_POST['name'];
     $pass = $_POST['passwd'];
-    
+
     include "./func/conect.php";
     $sql = "SELECT * FROM users WHERE name = '$name' AND pass = '$pass'";
     $rs = $con->query($sql);
     if ($rs->num_rows >= 1)
     {
 
-        $_SESSION['login'] = true;
+        setcookie("login", true, time() + (86400 * 30), "/");
         $arr = [];
         while ($row = $rs->fetch_assoc())
         {
             $arr[] = $row;
-        } ?>
-        <script>
-            setTimeout(function () {
-                window.location.href = './control.php?file=index.php';
-            }, 0);
-        </script>
-
-    <?php }
+        }
+        if ($arr[0])
+        {
+            $data = base64_encode(json_encode($arr[0]));
+            //print_r($data);
+            setcookie("user", $data, time() + (86400 * 30), "/");
+            if ($arr[0]['role'] == "Member")
+            {?>
+                <script>
+                    setTimeout(function () {
+                        window.location.href = './control.php?file=index.php';
+                    }, 0);
+                </script>
+            <?php }else if($arr[0]['role'] == "Admin"){?>
+                <script>
+                    setTimeout(function () {
+                        window.location.href = './admin.php';
+                    }, 0);
+                </script>
+            <?php }
+        }
+    }
 }
-
-?>
