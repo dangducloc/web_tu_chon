@@ -40,7 +40,7 @@
             <h1>Drop Your img here</h1>
 
         </div>
-
+        <img src="imga" alt="">
         <div class="dropzone">
             <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
             <input type="file" accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" name="file"

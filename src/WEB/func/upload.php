@@ -30,10 +30,7 @@ foreach($arr as $ele){
 if ($a == 1) {
     echo "Not Allow Upload Shell";
     $uploadOk = 0;
-}else{
-    // echo "hacker said: ".$imageFileType;
 }
-
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
@@ -41,7 +38,7 @@ if ($uploadOk == 0) {
     // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-        echo "The file " . htmlspecialchars(basename($_FILES["file"]["name"])) . " has been uploaded in <br>";
+        header("../uploading.php?img = ".basename($_FILES["file"]["name"]));
     } else {
         echo "Sorry, there was an error uploading your file.<br>";
     }
