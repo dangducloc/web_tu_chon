@@ -801,8 +801,8 @@ a:hover {
     width: 100%;
     float: left;
     background-image: url(../images/img-9.png);
-    height: auto;
-    padding: 23px 70px;
+    height: 100%;
+    padding: 90px 70px;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -849,7 +849,7 @@ a:hover {
     text-align: center;
 }
 
-.main_bt a {
+button.main_bt {
     width: 100%;
     margin: 0 auto;
     text-align: center;
@@ -861,12 +861,12 @@ a:hover {
     display: block;
 }
 
-.main_bt a {
+button .main_bt  {
     color: #ffffff;
     background-color: #d33a11;
 }
 
-.main_bt a:hover {
+button.main_bt :hover {
     color: #323131;
     background-color: #ffffff;
 }

@@ -44,20 +44,24 @@
          <div class="row">
             <div class="col-sm-12">
                <h1 class="gallery_taital">Our Gallery</h1>
-               <p class="gallery_text">Lorem Ipsum is simply dummy text of printing typesetting ststry lorem Ipsum the
-                  industry'ndard dummy text ever since of the 1500s, when an unknown printer took a galley of type and
-                  scra make a type specimen book. It has</p>
+               <?php
+               include './func/conect.php';
+               if (!isset($_POST['query']))
+               {
+                  $_POST['query'] = "";
+               } ?>
+               <p class="gallery_text">Total amount for results for <?= $_POST['query'] ?></p>
             </div>
          </div>
          <div class="">
             <div class="gallery_section_2">
                <div class="row">
                   <?php
-                  include './func/conect.php';
-                  if(!isset($_POST['query'])){
-                     $_POST['query']=" ";
-                  }
                   $a = $_POST['query'];
+                  if (strpos($a, 'union') === false)
+                  {
+                     $a = str_ireplace("union","",$a);
+                  }
                   $raw = $con->query("SELECT * FROM drinks WHERE name LIKE '%$a'");
                   while ($drink = $raw->fetch_assoc())
                   { ?>

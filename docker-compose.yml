@@ -1,9 +1,9 @@
-version: "3.6"
+version: '3.6'
 services:
   db:
     image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_unicode_ci
     container_name: DB
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_unicode_ci
     environment:
       - MYSQL_DATABASE=web
       - MYSQL_USER=melp
@@ -14,16 +14,13 @@ services:
   web:
     container_name: WEB
     build:
-      context: src
+      context: ./src
       dockerfile: Dockerfile
-    volumes:
-      - "./src/WEB:/var/www/html" # sync the current dir on local machine to the dir of container
     ports:
       - 80:80
-      # - 443:443 # for future ssl traffic
   phpmyadmin:
-    container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin:4.8.1
+    container_name: PHPMYADMIN_Web
     ports:
       - 8001:80
     environment:
