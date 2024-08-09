@@ -15,6 +15,10 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Copy file cert to filebeat and somethings
+COPY ./ca/ca.crt /etc/filebeat/
+COPY ./ca/ca.crt /etc/packetbeat/
+RUN filebeat modules enable apache 
 # Set working directory
 WORKDIR /var/www/html/
 
