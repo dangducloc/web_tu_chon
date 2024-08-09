@@ -7,7 +7,11 @@ ENV TZ=Asia/Ho_Chi_Minh
 
 # Install Apache, PHP, MySQLi, and other dependencies
 RUN apt-get update && \
-    apt-get install -y apache2 php libapache2-mod-php php-mysql tzdata && \
+    apt-get install -y apache2 php libapache2-mod-php php-mysql wget nano apt-transport-https gnupg2 curl && \
+    wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add - && \
+    echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-7.x.list && \
+    apt-get update && \
+    apt-get install filebeat packetbeat libpcap0.8 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

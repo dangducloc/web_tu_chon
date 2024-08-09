@@ -1,13 +1,14 @@
-version: '3.6'
+version: "3.6"
 services:
   db:
-    image: mysql:latest
-    container_name: DB
+    image: mysql:8.0
+    container_name: DB 
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_unicode_ci
     environment:
       - MYSQL_DATABASE=web
       - MYSQL_USER=melp
-      - MYSQL_ROOT_PASSWORD=pinkguy
-      - MYSQL_PASSWORD=fvcked # this should live in a env var
+      - MYSQL_ROOT_PASSWORD=iloveyou
+      - MYSQL_PASSWORD=I@Admin@123456 # this should live in a env var
       - MYSQL_ALLOW_EMPTY_PASSWORD=0 # equivalent to True
     volumes:
       - "./DB:/docker-entrypoint-initdb.d" # this is how we persist a sql db even when container stops
@@ -16,11 +17,16 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
+    volumes:
+      -"./src/WEB:/var/www/html"
     ports:
       - 80:80
+    extra_hosts:
+      - "kibana.local:192.168.56.101"
+      - "elasticsearch.local:192.168.56.101"
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: PHP_myadmin
+    image: phpmyadmin/phpmyadmin:4.8.1
+    container_name: PHPMYADMIN_Web
     ports:
       - 8001:80
     environment:
