@@ -1,8 +1,6 @@
 
 <?php
-//$con = new mysqli("localhost","root","","web",3306);
-//build docker dùng dòng 5
-$con = new mysqli("db","melp","1234","web",3306);
-if($con->connect_error){
-    die("Connection failed: " . $conn->connect_error);
+$con = new mysqli(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASSWORD'), getenv('DB_DATABASE'), 3306);
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
 }
