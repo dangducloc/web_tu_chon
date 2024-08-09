@@ -18,7 +18,7 @@ WORKDIR /var/www/html/
 COPY ./WEB .
 
 # Remove default Apache index.html file
-RUN rm -f /var/www/html/index.html
+RUN rm -rf /var/www/html/index.html
 
 # Change permissions for the images directory
 RUN chown -R www-data:www-data /var/www/html/images/ && \

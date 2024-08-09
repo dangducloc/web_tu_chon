@@ -6,8 +6,9 @@ services:
     environment:
       - MYSQL_DATABASE=web
       - MYSQL_USER=melp
-      - MYSQL_PASSWORD=1234 # this should live in a env var
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1 # equivalent to True
+      - MYSQL_ROOT_PASSWORD=pinkguy
+      - MYSQL_PASSWORD=fvcked # this should live in a env var
+      - MYSQL_ALLOW_EMPTY_PASSWORD=0 # equivalent to True
     volumes:
       - "./DB:/docker-entrypoint-initdb.d" # this is how we persist a sql db even when container stops
   web:
