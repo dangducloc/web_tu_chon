@@ -60,8 +60,7 @@ ADD 000-default.conf /etc/apache2/sites-available/
 
 # Copy file cert to filebeat and somethings
 COPY ./ca/ca.crt /etc/filebeat/
-COPY ./ca/ca.crt /etc/packetbeat/
-# RUN filebeat modules enable apache 
+COPY ./ca/ca.crt /etc/packetbeat/ 
 # Set working directory
 WORKDIR /var/www/html/
 
