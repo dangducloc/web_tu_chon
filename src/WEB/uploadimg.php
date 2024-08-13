@@ -31,9 +31,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
         media="screen">
 </head>
-<center>
-    <h1>Sorry Out of ideal</h1>
-</center>
 <div class="frame">
     <form method="post" enctype="multipart/form-data" action="./func/upload.php" class="center">
         <div class="title">
