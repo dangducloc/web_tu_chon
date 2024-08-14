@@ -1,15 +1,13 @@
 <?php
 include "./isLogin.php";
-if (!isset($_COOKIE["user"]))
-{
-    header("Location:index.php", );
-} else
-{
+if (!isset($_COOKIE["user"])) {
+    header("Location:index.php",);
+} else {
     $cookie = $_COOKIE["user"];
     $json = json_decode(base64_decode($cookie), true);
     $role = $json["role"];
-    if($role!= "Admin"){
-        header("Location:index.php", );  
+    if ($role != "Admin") {
+        header("Location:index.php",);
     }
 }
 
@@ -57,11 +55,7 @@ if (!isset($_COOKIE["user"]))
                             <i class="bi bi-person-fill"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </li>
+                            <li><a class="dropdown-item" href="./logout.php">Log out</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -102,8 +96,7 @@ if (!isset($_COOKIE["user"]))
                                         include "./func/conect.php";
                                         $sql = "SELECT msg.id,id_user,name,role,email,msg FROM msg INNER JOIN users ON msg.id_user = users.id;";
                                         $rs = $con->query($sql);
-                                        while ($row = $rs->fetch_assoc())
-                                        { ?>
+                                        while ($row = $rs->fetch_assoc()) { ?>
                                             <tr>
                                                 <td><?= $row["id"] ?></td>
                                                 <td><?= $row["id_user"] ?></td>
