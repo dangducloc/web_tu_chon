@@ -5,42 +5,46 @@ $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 // Check if image file is a actual image or fake image
+if (isset($_POST["submit"])) {
+    $check = getimagesize($_FILES["file"]["tmp_name"]);
+    if ($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+}
 
 // Check if file already exists
 if (file_exists($target_file)) {
-    echo "Sorry, file already exists.<br>";
+    echo "Sorry, file already exists.";
     $uploadOk = 0;
 }
 
 // Check file size
 if ($_FILES["file"]["size"] > 500000) {
-    echo "Sorry, your file is too large.<br>";
+    echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
-$arr=["php","php1","php2","php3","php4","php5","php6","php7","php8","phtml"];
 
 // Allow certain file formats
-$a = 0;
-foreach($arr as $ele){
-    if($imageFileType == $ele){
-        $a = 1;
-    }
-    break;
-}
-if ($a == 1) {
-    echo "Not Allow Upload Shell";
+if (
+    $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    && $imageFileType != "gif"
+) {
+    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
 }
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.<br>";
+    echo "Sorry, your file was not uploaded.";
     // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-        echo "The file " . htmlspecialchars(basename($_FILES["file"]["name"])) . " has been uploaded in <br>";
+        echo "The file " . htmlspecialchars(basename($_FILES["file"]["name"])) . " has been uploaded.";
     } else {
-        echo "Sorry, there was an error uploading your file.<br>";
+        echo "Sorry, there was an error uploading your file.";
     }
 }
- 
