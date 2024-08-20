@@ -1,50 +1,57 @@
 <?php
 $target_dir = "../images/";
-$target_file = $target_dir . basename($_FILES["file"]["name"]);
+$original_filename = basename($_FILES["file"]["name"]);
+$target_file = $target_dir . $original_filename;
 $uploadOk = 1;
+$message = "";
 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-// Check if image file is a actual image or fake image
+// Check if image file is an actual image or fake image
 if (isset($_POST["submit"])) {
     $check = getimagesize($_FILES["file"]["tmp_name"]);
     if ($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
+        $message = "File is an image - " . $check["mime"] . ".";
     } else {
-        echo "File is not an image.";
+        $message = "File is not an image.";
         $uploadOk = 0;
     }
 }
 
-// Check if file already exists
+// Check if file already exists and generate a new unique filename
 if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
+    $file_name = pathinfo($original_filename, PATHINFO_FILENAME);
+    $new_filename = $file_name . '_' . time() . '.' . $imageFileType;
+    $target_file = $target_dir . $new_filename;
+    $message = "File already existed, so the file was saved as $new_filename.";
 }
 
 // Check file size
 if ($_FILES["file"]["size"] > 500000) {
-    echo "Sorry, your file is too large.";
+    $message = "Sorry, your file is too large.";
     $uploadOk = 0;
 }
 
 // Allow certain file formats
-if (
-    $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif"
-) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+if (!in_array($imageFileType, ["jpg", "png", "jpeg", "gif"])) {
+    $message = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
 }
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
+    $message = $message ?: "Sorry, your file was not uploaded.";
 } else {
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-        echo "The file " . htmlspecialchars(basename($_FILES["file"]["name"])) . " has been uploaded.";
+        $message = "The file " . htmlspecialchars(basename($target_file)) . " has been uploaded.";
     } else {
-        echo "Sorry, there was an error uploading your file.";
+        $message = "Sorry, there was an error uploading your file.";
     }
 }
+
+// Display the message and redirect after 5 seconds
+echo "<p>$message</p>";
+echo "<script>
+        setTimeout(function() {
+            window.location.href = '/control.php?file=uploadimg.php';
+        }, 1500);
+      </script>";
