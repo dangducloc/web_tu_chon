@@ -25,10 +25,10 @@ services:
       - "./src/WEB:/var/www/html"
     ports:
       - 80:80
-    # ADD host kibana and elasticsearch to file /etc/host to config SSL/TLS and fix error 
+    # ADD host kibana and elasticsearch to file /etc/host to config SSL/TLS and fix error, change it 
     extra_hosts:
-      - "kibana.local:192.168.56.101"
-      - "elasticsearch.local:192.168.56.101"
+      - "kibana.local:192.168.56.105"
+      - "elasticsearch.local:192.168.56.105"
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.8.1
     container_name: PHPMYADMIN_Web
